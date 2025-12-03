@@ -5,43 +5,45 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Spring Boot compatible con Spring Cloud 2025 -->
+    <!-- Versión estable y soportada por Spring Cloud -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version>
+        <version>3.3.5</version>
     </parent>
 
     <groupId>com.gateway</groupId>
     <artifactId>gateway-service</artifactId>
     <version>1.0.0</version>
+    <name>gateway-service</name>
 
     <properties>
         <java.version>17</java.version>
-        <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <!-- Versión con soporte real para Spring Boot 3.3.x -->
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
     </properties>
 
     <dependencies>
 
-        <!-- Gateway -->
+        <!-- GATEWAY -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
-        <!-- Eureka Client -->
+        <!-- EUREKA CLIENT -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
-        <!-- Necesario para Gateway (WebFlux) -->
+        <!-- Necesario para Gateway (basado en WebFlux) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
-        <!-- Test -->
+        <!-- TEST -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -50,7 +52,7 @@
 
     </dependencies>
 
-    <!-- Importante: BOM de Spring Cloud -->
+    <!-- Spring Cloud BOM -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -62,5 +64,23 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!-- NECESARIO PARA QUE RENDER NO DE ERROR CON EL JAR -->
+    <build>
+        <plugins>
+            <!-- Empaqueta correctamente el MANIFEST.MF -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
